@@ -14,16 +14,16 @@ app.get('/', function(rqst, responce) {
 
 app.post('/', function(rqst, responce) {
   let city = rqst.body.city;
-  let apiKey = 'your_api_key_here';
+  let apiKey = '58aa6d4558546ffb65cf07b22a23dcea';
   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
   request(url, function (error, response, body) {
     if (error) {
-      responce.render('index', {weather:null, error:'Error please try again'});
+      responce.render('index', {weather:null, error:'network error'});
     } else {
       let weather = JSON.parse(body);
       if (weather.main == undefined) {
-        responce.render('index', {weather: null, error:'Error please try again!!'});
+        responce.render('index', {weather: null, error:'Invalid City'});
       }else {
         let weatherText = `It's ${weather.main.temp} degrees in ${weather.name}`;
         responce.render('index', {weather: weatherText, error:null});
